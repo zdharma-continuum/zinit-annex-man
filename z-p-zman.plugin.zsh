@@ -7,8 +7,12 @@
 typeset -g ZMAN_REPO_DIR="${0:h}"
 typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/z-p-zman"
 
-unfunction zman
-autoload -Uz :zp-zman-handler zman
+zman() {
+    "$ZMAN_REPO_DIR/zman" "$ZMAN_REPO_DIR" "${ZPLGM[PLUGINS_DIR]}" \
+        "${ZPLGM[SNIPPETS_DIR]}" "$@";
+}
+
+autoload -Uz :zp-zman-handler
 
 zman-inst() {
     print -P -- "\n%F{38}zman z-plugin: \%F{154}Installing %F{220}$1%F{154} gem locally in the z-p-zman directory...%f"
@@ -33,3 +37,4 @@ unset -f zman-inst
 @zplg-register-z-plugin "z-p-zman" hook:atpull \
     :zp-zman-handler \
     :zp-zman-atpull-help-handler
+

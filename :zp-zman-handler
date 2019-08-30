@@ -14,8 +14,8 @@ if [[ -f $dir/README.md && ( ! -f $dir/README || $dir/README.md -nt $dir/README 
         print -P -- "%F{38}zman z-plugin: %F{154}Generating the manual page for the \
 %F{220}${url+$url%F\{154\} snippet}${plugin+$plugin%F\{154\} plugin}...%f"
     $ronn_bin --roff \
-        --manual="Manual for ${url+$url Snippet}${plugin+$plugin Plugin}" \
-        "$dir/README.md"
+        --manual="Manual For \`${url+$url Snippet}${plugin+$plugin Plugin}'" \
+        "$dir/README.md" 2>/dev/null
 else
     [[ -f $dir/README.md ]] && \
         print -P -- "%F{38}zman z-plugin: %F{154}The manual page is up to date%f" || \
