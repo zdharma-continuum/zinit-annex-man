@@ -55,6 +55,8 @@ parray=( "$plgdir"/"${^${@//\//---}}"(N) "$plgdir"/*---"$^@"(N) )
 sarray=( "$snipdir"/"$^@"(N) )
 
 for pors (${parray[@]}) {
+    [[ "${pors%/}" = "$plgdir" ]] && continue
+
     if [[ -f $pors/README.md && \
         ( ! -f $pors/README || $pors/README.md -nt $pors/README )
     ]]; then
@@ -88,6 +90,13 @@ local -a farray
 farray=( ${^parray[@]}/README(N) ${^sarray[@]}/README(N) )
 if (( ${#farray} )); then
     man ${farray[@]}
+else
+    if (( ${#} )); then
+        print -P -- "%F{38}zman z-plugin: %F{154}No such plugin(s) or snippet(s): \
+%F{220}${(j:, :)@}%F{154}%f"
+    else
+        print -P -- "%F{38}zman z-plugin: %F{154}Argument required – a plugin or snippet name%f"
+    fi
 fi
 
 # vim:ft=zsh:sw=4:sts=4:et
