@@ -1,0 +1,24 @@
+#compdef zman
+
+local context state state_descr line ret=1
+
+_arguments -C \
+    '*: :->argument' && ret=0
+
+case $state in
+    argument)
+            typeset -a plugins
+            plugins=( "${ZPLGM[PLUGINS_DIR]}"/*(N:t) )
+            plugins=( "${plugins[@]//---//}" )
+            plugins=( "${plugins[@]:#custom}" )
+
+            _wanted plugins expl "Plugins" \
+                compadd "$@" -a - plugins && ret=0
+            #_alternative 'directories:directory:_directories' 'plugins:plugin:compadd -a - plugins'
+            ;;
+    *)
+        ret=1
+        ;;
+esac
+
+return "$ret"

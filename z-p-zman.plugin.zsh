@@ -38,3 +38,6 @@ unset -f zman-inst
     :zp-zman-handler \
     :zp-zman-atpull-help-handler
 
+
+zstyle ':completion:*:zman:argument-rest:plugins' list-colors '=(#b)(*)/(*)==1;35=1;33'
+zstyle ':completion:*:zman:argument-rest:plugins' matcher 'r:|=** l:|=*'
