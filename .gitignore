@@ -1,3 +1,17 @@
+*.gem
+README
+gems/
+bin/
+extensions/
+specifications/
+build_info/
+cache/
+
+# Zsh
+*.zwc
+*zcompdump*
+._zplugin
+
 # Prerequisites
 *.d
 
