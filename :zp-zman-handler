@@ -7,6 +7,7 @@ setopt extendedglob warncreateglobal typesetsilent noshortloops
 
 local -x GEM_HOME="$ZMAN_REPO_DIR" RUBYLIB="$RUBYLIB:$ZMAN_REPO_DIR/ronn/lib"
 local ronn_bin="$ZMAN_REPO_DIR/ronn/bin/ronn"
+local -x PATH="$ZMAN_REPO_DIR/bin:$PATH"
 
 if [[ -f $dir/README.md && ( ! -f $dir/README || $dir/README.md -nt $dir/README ) ]]; then
     [[ -f $dir/README ]] && \
@@ -23,5 +24,42 @@ else
         print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
 %F{220}${url+$url%F\{154\} snippet}${plugin+$plugin%F\{154\} plugin}%f"
 fi
+
+local -A basedir_to_path
+local -A basedir_to_outdated
+local pth basedir fname
+local -a farray
+
+farray=(
+    $dir/*.plugin.zsh(N) $dir/*.zsh-theme(N)
+    $dir/*.zsh(N) $dir/init.zsh(N) $dir/*.sh(N)
+    $dir/.zshrc(N)
+)
+
+for pth (${farray[@]}) {
+    basedir="${pth:h}"
+    fname="${pth:t}"
+    basedir_to_path[$basedir]+="${(q)pth} "
+
+    if [[ ! -f $basedir/zsdoc/$fname.adoc || \
+        ( $pth -nt $baedir/zsdoc/$fname.adoc )
+    ]]; then
+        basedir_to_outdated[$basedir]=1
+    fi
+}
+
+local key
+for key (${(k)basedir_to_outdated}) {
+    local -a pths
+    pths=( "${(@)${(@z)basedir_to_path[$key]}#$key/}" )
+    (
+        if cd $key; then
+            zsd -r -scomm \
+                --cignore '(\#*FUNCTION:*{{{*|\#[[:space:]]#}}}*)' \
+                $pths
+            asciidoctor -b manpage $key/zsdoc/${pths:t}.adoc
+        fi
+    )
+}
 
 # vim:ft=zsh:sts=4:sw=4:et
