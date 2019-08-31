@@ -1,3 +1,6 @@
 [submodule "ronn"]
 	path = ronn
 	url = ./ronn
+[submodule "zshelldoc"]
+	path = zshelldoc
+	url = GHZ:zshelldoc
