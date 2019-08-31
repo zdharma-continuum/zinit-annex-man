@@ -8,6 +8,7 @@ extensions/
 specifications/
 build_info/
 cache/
+zsdoc/
 
 # Zsh
 *.zwc
