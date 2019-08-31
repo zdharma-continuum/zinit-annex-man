@@ -110,7 +110,10 @@ else
     local -a farray
     farray=( ${^parray[@]}/zsdoc/*.1(N) ${^sarray[@]}/zsdoc/*.1(N) )
     if (( ${#farray} )); then
-        man ${farray[@]}
+        local fle
+        for fle (${farray[@]}) {
+            man "$fle"
+        }
     else
         if (( ${#} )); then
             print -P -- "%F{38}zman z-plugin: %F{154}No such plugin(s) or snippet(s) \
