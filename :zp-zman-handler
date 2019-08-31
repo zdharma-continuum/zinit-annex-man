@@ -20,15 +20,14 @@ if [[ -f $dir/README.md && ( ! -f $dir/README || $dir/README.md -nt $dir/README 
         "$dir/README.md" 2>/dev/null
 else
     [[ -f $dir/README.md ]] && \
-        print -P -- "%F{38}zman z-plugin: %F{154}The manual page is up to date%f" || \
+        print -P -- "%F{38}zman z-plugin: %F{154}Manual page is up to date%f" || \
         print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
 %F{220}${url+$url%F\{154\} snippet}${plugin+$plugin%F\{154\} plugin}%f"
 fi
 
-local -A basedir_to_path
-local -A basedir_to_outdated
-local pth basedir fname
-local -a farray
+local -a outdated_pths
+local pth fname
+local -a farray submods
 
 farray=(
     $dir/*.plugin.zsh(N) $dir/*.zsh-theme(N)
@@ -36,30 +35,45 @@ farray=(
     $dir/.zshrc(N)
 )
 
-for pth (${(u)farray[@]}) {
-    basedir="${pth:h}"
-    fname="${pth:t}"
-    basedir_to_path[$basedir]+="${(q)pth} "
+[[ -f $dir/.gitmodules ]] && submods=( ${(@f)"$( grep 'path[[:space:]]*=' $dir/.gitmodules )"} )
+submods=( ${submods[@]//(#s)[[:space:]]#path[[:space:]]#=[[:space:]]#/} )
+submods=( --exclude-dir=${^submods} )
 
-    if [[ ! -f $basedir/zsdoc/$fname.adoc || \
-        ( $pth -nt $baedir/zsdoc/$fname.adoc )
-    ]]; then
-        basedir_to_outdated[$basedir]=1
-    fi
-}
+# Include files with zsh-filetype modelines
+farray+=( $dir/${(@f)^"$( cd "$dir" && egrep -rl --exclude-dir=bin --exclude-dir=.git \
+--exclude-dir=zsdoc ${submods[@]} \
+"(#[[:space:]]+vim:.*ft=(sh|bash|zsh)|#[[:space:]]+vim:.*filetype=(sh|bash|zsh)|\
+-\*-[[:space:]]+.*Mode:[[:space:]]*(sh|bash|zsh|ksh))" .)"} )
 
-local key
-for key (${(k)basedir_to_outdated}) {
-    local -a pths
-    pths=( "${(@)${(@z)basedir_to_path[$key]}#$key/}" )
-    (
-        if cd $key; then
-            zsd -r -scomm \
-                --cignore '(\#*FUNCTION:*{{{*|\#[[:space:]]#}}}*)' \
-                $pths
-            asciidoctor -b manpage $key/zsdoc/${^pths:t}.adoc
+(
+    cd "$dir"
+    for pth (${(u)farray[@]:P}) {
+        fname="${pth:t}"
+
+        if [[ ! -f $dir/zsdoc/$fname.adoc || \
+            ( $pth -nt $dir/zsdoc/$fname.adoc )
+        ]]; then
+            outdated_pths+=( "$pth" )
         fi
-    )
-}
+    }
 
-# vim:ft=zsh:sts=4:sw=4:et
+    if (( ${#outdated_pths} )); then
+        (
+            if cd $dir; then
+                print -P -- "%F{38}zman z-plugin: %F{154}Generating code documentation...%f"
+                zsd -r -scomm \
+                    --cignore '(\#*FUNCTION:*{{{*|\#[[:space:]]#}}}*)' \
+                    ${outdated_pths[@]}
+                asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc
+            fi
+        )
+    else
+        if (( ${#farray} )); then
+            print -P -- "%F{38}zman z-plugin: %F{154}Code documentation is up to date%f"
+        else
+            print -P -- "%F{38}zman z-plugin: %F{154}No files with code found%f"
+        fi
+    fi
+)
+
+    # vim:ft=zsh:sts=4:sw=4:et
