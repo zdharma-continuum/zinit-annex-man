@@ -61,7 +61,7 @@ farray+=( $dir/${(@f)^"$( cd "$dir" && egrep -rl --exclude-dir=bin --exclude-dir
         (
             if cd $dir; then
                 print -P -- "%F{38}zman z-plugin: %F{154}Generating code documentation...%f"
-                zsd -r -scomm \
+                zsd -r --scomm \
                     --cignore '(\#*FUNCTION:*{{{*|\#[[:space:]]#}}}*)' \
                     ${outdated_pths[@]}
                 asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc
