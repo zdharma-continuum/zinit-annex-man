@@ -1,4 +1,5 @@
-emulate -LR zsh -o extendedglob -o warncreateglobal -o typesetsilent
+emulate -RL zsh
+setopt extendedglob warncreateglobal typesetsilent noshortloops
 
 [[ "$1" = plugin ]] && \
     local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5" || \
