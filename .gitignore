@@ -1,7 +1,9 @@
 *.gem
 README
+zshelldoc/
 gems/
 bin/
+share/
 extensions/
 specifications/
 build_info/
