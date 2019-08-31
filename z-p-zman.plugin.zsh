@@ -8,24 +8,34 @@ typeset -g ZMAN_REPO_DIR="${0:h}"
 typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/z-p-zman"
 
 zman() {
-    "$ZMAN_REPO_DIR/zman" "$ZMAN_REPO_DIR" "${ZPLGM[PLUGINS_DIR]}" \
+    "$ZMAN_REPO_DIR/zman" "$ZMAN_REPO_DIR" \
+        "${ZPLGM[PLUGINS_DIR]}" \
         "${ZPLGM[SNIPPETS_DIR]}" "$@";
 }
 
 autoload -Uz :zp-zman-handler
 
 zman-inst() {
-    print -P -- "\n%F{38}zman z-plugin: \%F{154}Installing %F{220}$1%F{154} gem locally in the z-p-zman directory...%f"
+    if [[ "$1" = g ]]; then
+        print -P -- "\n%F{38}zman z-plugin: \%F{154}Installing %F{220}$2%F{154} gem locally in the z-p-zman directory...%f"
+    else
+        print -P -- "\n%F{38}zman z-plugin: \%F{154}$2%f"
+    fi
 }
 
 # Check if ronn dependencies are installed
 local zman_dep
 local -a farray
-for zman_dep in hpricot rdiscount mustache; do
+for zman_dep in hpricot rdiscount mustache asciidoctor; do
     farray=( $ZMAN_REPO_DIR/gems/$zman_dep-*(N[1]) )
     [[ ! -d ${farray[1]} ]] && \
-        { zman-inst "$zman_dep"; gem install -i "$ZMAN_REPO_DIR" "$zman_dep"; }
+        { zman-inst g "$zman_dep"; gem install -i "$ZMAN_REPO_DIR" "$zman_dep"; }
 done
+
+if [[ ! -f $ZMAN_REPO_DIR/bin/zsd ]]; then
+    zman-inst o "Installing zshelldoc..."
+    make -C $ZMAN_REPO_DIR/zshelldoc install PREFIX="$ZMAN_REPO_DIR" >/dev/null
+fi
 
 unset -f zman-inst
 
@@ -37,7 +47,6 @@ unset -f zman-inst
 @zplg-register-z-plugin "z-p-zman" hook:atpull \
     :zp-zman-handler \
     :zp-zman-atpull-help-handler
-
 
 zstyle ':completion:*:zman:argument-rest:plugins' list-colors '=(#b)(*)/(*)==1;35=1;33'
 zstyle ':completion:*:zman:argument-rest:plugins' matcher 'r:|=** l:|=*'
