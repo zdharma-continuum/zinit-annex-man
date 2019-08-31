@@ -36,7 +36,7 @@ farray=(
     $dir/.zshrc(N)
 )
 
-for pth (${farray[@]}) {
+for pth (${(u)farray[@]}) {
     basedir="${pth:h}"
     fname="${pth:t}"
     basedir_to_path[$basedir]+="${(q)pth} "
@@ -57,7 +57,7 @@ for key (${(k)basedir_to_outdated}) {
             zsd -r -scomm \
                 --cignore '(\#*FUNCTION:*{{{*|\#[[:space:]]#}}}*)' \
                 $pths
-            asciidoctor -b manpage $key/zsdoc/${pths:t}.adoc
+            asciidoctor -b manpage $key/zsdoc/${^pths:t}.adoc
         fi
     )
 }
