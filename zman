@@ -1,6 +1,9 @@
 #!/usr/bin/env zsh
 # Can be run as a script and as a function
 
+emulate -LR zsh
+setopt extendedglob warncreateglobal typesetsilent noshortloops
+
 if [[ "$0" != declzsh || -n "$ZSH_SCRIPT" ]]; then
     # Handle $0 according to the Zsh Plugin Standard:
     # http://zdharma.org/Zsh-100-Commits-Club/Zsh-Plugin-Standard.html
