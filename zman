@@ -14,6 +14,10 @@ fi
 
 autoload -Uz :zp-zman-handler
 
+local -A opthash
+zparseopts -E -D -A opthash c h -help || \
+    { echo "Improper options given, see help (-h/--help)"; return 1; }
+
 -zplg-any-to-user-plugin() {
     # Two components given?
     # That's a pretty fast track to call this function this way
@@ -89,17 +93,31 @@ for pors (${sarray[@]}) {
     fi
 }
 
-local -a farray
-farray=( ${^parray[@]}/README(N) ${^sarray[@]}/README(N) )
-if (( ${#farray} )); then
-    man ${farray[@]}
-else
-    if (( ${#} )); then
-        print -P -- "%F{38}zman z-plugin: %F{154}No such plugin(s) or snippet(s): \
-%F{220}${(j:, :)@}%F{154}%f"
+if (( !${+opthash[-c]} )); then
+    local -a farray
+    farray=( ${^parray[@]}/README(N) ${^sarray[@]}/README(N) )
+    if (( ${#farray} )); then
+        man ${farray[@]}
     else
-        print -P -- "%F{38}zman z-plugin: %F{154}Argument required – a plugin or snippet name%f"
+        if (( ${#} )); then
+            print -P -- "%F{38}zman z-plugin: %F{154}No such plugin(s) or snippet(s): \
+    %F{220}${(j:, :)@}%F{154}%f"
+        else
+            print -P -- "%F{38}zman z-plugin: %F{154}Argument required – a plugin or snippet name%f"
+        fi
+    fi
+else
+    local -a farray
+    farray=( ${^parray[@]}/zsdoc/*.1(N) ${^sarray[@]}/zsdoc/*.1(N) )
+    if (( ${#farray} )); then
+        man ${farray[@]}
+    else
+        if (( ${#} )); then
+            print -P -- "%F{38}zman z-plugin: %F{154}No such plugin(s) or snippet(s) \
+or no code documentation available for: %F{220}${(j:, :)@}%F{154}%f"
+        else
+            print -P -- "%F{38}zman z-plugin: %F{154}Argument required – a plugin or snippet name%f"
+        fi
     fi
 fi
-
 # vim:ft=zsh:sw=4:sts=4:et
