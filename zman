@@ -70,14 +70,15 @@ sarray=( "$snipdir"/"$^@"(N) )
 for pors (${parray[@]}) {
     [[ "${pors%/}" = "$plgdir" ]] && continue
 
-    if [[ -f $pors/README.md && \
-        ( ! -f $pors/README || $pors/README.md -nt $pors/README )
+    if [[ -f ''(#i)$pors/README.md(#qN[1]) && \
+        ( ! -f ''(#i)$pors/README(#qN[1]) || \
+            ''(#i)$pors/README.md(#qN[1]) -nt ''(#i)$pors/README(#qN[1]) )
     ]]; then
         -zplg-any-to-user-plugin "${pors:t}"
         # local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5"
         :zp-zman-handler plugin "${reply[-2]}" "${reply[-1]}" \
                     id_as="${${pors:t}//---//}" "$pors"
-    elif [[ ! -f $pors/README.md ]]; then
+    elif [[ ! -f ''(#i)$pors/README.md(#qN[1]) ]]; then
         -zplg-any-to-user-plugin "${pors:t}"
         print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
 %F{220}${reply[-1]}%F{154} plugin%f"
@@ -85,14 +86,15 @@ for pors (${parray[@]}) {
 }
 
 for pors (${sarray[@]}) {
-    if [[ -f $pors/README.md && \
-        ( ! -f $pors/README || $pors/README.md -nt $pors/README )
+    if [[ -f ''(#i)$pors/README.md(#qN[1]) && \
+        ( ! -f ''(#i)$pors/README(#qN[1]) || \
+            ''(#i)$pors/README.md(#qN[1]) -nt ''(#i)$pors/README(#qN[1]) )
     ]]; then
         local snippath="${pors#$snipdir/}"
         # local type="$1" url="$2" id_as="$3" dir="$4"
         :zp-zman-handler snippet "$snippath" \
                     id_as="${${snippath:t}//--//}" "$pors"
-    elif [[ ! -f $pors/README.md ]]; then
+    elif [[ ! -f ''(#i)$pors/README.md(#qN[1]) ]]; then
         local snippath="${pors#$snipdir/}"
         print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
 %F{220}${snippath}%F{154} snippet%f"
@@ -101,7 +103,9 @@ for pors (${sarray[@]}) {
 
 if (( !${+opthash[-c]} )); then
     local -a farray
-    farray=( ${^parray[@]}/README(N) ${^sarray[@]}/README(N) )
+    farray=( ${^parray[@]}/(#i)README(#qN)
+            ${^sarray[@]}/(#i)README(#qN)
+    )
     if (( ${#farray} )); then
         man ${farray[@]}
     else
