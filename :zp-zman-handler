@@ -43,7 +43,9 @@ submods=( --exclude-dir=${^submods} )
 farray+=( $dir/${(@f)^"$( cd "$dir" && egrep -rl --exclude-dir=bin --exclude-dir=.git \
 --exclude-dir=zsdoc ${submods[@]} \
 "(#[[:space:]]+vim:.*ft=(sh|bash|zsh)|#[[:space:]]+vim:.*filetype=(sh|bash|zsh)|\
--\*-[[:space:]]+.*Mode:[[:space:]]*(sh|bash|zsh|ksh))" .)"} )
+-\*-[[:space:]]+.*Mode:[[:space:]]*(sh|bash|zsh|ksh))" .)"}(N) )
+
+farray=( ${farray[@]:#${dir%/#}/} )
 
 (
     cd "$dir"
