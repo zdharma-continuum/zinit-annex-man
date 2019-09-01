@@ -30,7 +30,7 @@ Code documentation for the plugin.zsh file (of the project):
 
 # Installation
 
-Simply load as a plugin. This will install the z-plugin within Zplugin:
+Simply load as a plugin. This will install the extension within Zplugin:
 
 ```zsh
 zplugin light zdharma/z-p-man
