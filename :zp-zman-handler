@@ -64,8 +64,9 @@ farray=( ${farray[@]:#${dir%/#}/} )
         (
             if cd $dir; then
                 print -P -- "%F{38}zman z-plugin: %F{154}Generating code documentation...%f"
-                zsd -r --scomm \
-                    --cignore '(\#*FUNCTION:*{{{*|\#[[:space:]]#}}}*)' \
+                zsd --fpath "$dir:$dir/autoload:$dir/autoloads:$dir/function:\
+$dir/functions:$dir/fun:$dir/func:$dir/funct" \
+                    -r --scomm --cignore '(\#*FUN(C|CTION|):*{{{*|\#[[:space:]]#}}}*)' \
                     ${outdated_pths[@]}
                 asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc 2>/dev/null
             fi
