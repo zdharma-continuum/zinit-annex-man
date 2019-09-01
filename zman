@@ -14,10 +14,16 @@ fi
 
 autoload -Uz :zp-zman-handler
 
+local -a match mbegin mend reply
+local MATCH REPLY
+integer MBEGIN MEND
+
 local -A opthash
 zparseopts -E -D -A opthash c h -help || \
     { echo "Improper options given, see help (-h/--help)"; return 1; }
 
+# Converts plugin spec like "user/plugin" into two parts
+# returned in reply, namely the user and plugin
 -zplg-any-to-user-plugin() {
     # Two components given?
     # That's a pretty fast track to call this function this way
