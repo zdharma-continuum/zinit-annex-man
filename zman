@@ -105,10 +105,10 @@ if (( !${+opthash[-c]} )); then
     if (( ${#farray} )); then
         man ${farray[@]}
     else
-        if (( ${#} )); then
+        if (( ${#} && !${#parray} && !${#sarray} )); then
             print -P -- "%F{38}zman z-plugin: %F{154}No such plugin(s) or snippet(s): \
-    %F{220}${(j:, :)@}%F{154}%f"
-        else
+%F{220}${(j:, :)@}%F{154}%f"
+        elif (( !${#} )); then
             print -P -- "%F{38}zman z-plugin: %F{154}Argument required – a plugin or snippet name%f"
         fi
     fi
@@ -121,10 +121,10 @@ else
             man "$fle"
         }
     else
-        if (( ${#} )); then
+        if (( ${#} && !${#parray} && !${#sarray} )); then
             print -P -- "%F{38}zman z-plugin: %F{154}No such plugin(s) or snippet(s) \
 or no code documentation available for: %F{220}${(j:, :)@}%F{154}%f"
-        else
+        elif (( !${#} )); then
             print -P -- "%F{38}zman z-plugin: %F{154}Argument required – a plugin or snippet name%f"
         fi
     fi
