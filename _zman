@@ -10,7 +10,7 @@ case $state in
             typeset -a plugins
             plugins=( "${ZPLGM[PLUGINS_DIR]}"/*(N:t) )
             plugins=( "${plugins[@]//---//}" )
-            plugins=( "${plugins[@]:#custom}" )
+            plugins=( "${plugins[@]:#(custom|_local/zplugin)}" )
 
             _wanted plugins expl "Plugins" \
                 compadd "$@" -a - plugins && ret=0
