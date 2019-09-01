@@ -7,6 +7,7 @@
 typeset -g ZMAN_REPO_DIR="${0:h}"
 typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/z-p-zman"
 
+# A simple wrapper around `zman' script to avoid altering PATH
 zman() {
     "$ZMAN_REPO_DIR/zman" "$ZMAN_REPO_DIR" \
         "${ZPLGM[PLUGINS_DIR]}" \
@@ -15,6 +16,8 @@ zman() {
 
 autoload -Uz :zp-zman-handler
 
+# Prints one of two possible messages during installation
+# adding colors to them and preceding with z-p-zman preable
 zman-inst() {
     if [[ "$1" = g ]]; then
         print -P -- "\n%F{38}zman z-plugin: \%F{154}Installing %F{220}$2%F{154} gem locally in the z-p-zman directory...%f"
