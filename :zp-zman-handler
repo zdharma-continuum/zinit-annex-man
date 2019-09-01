@@ -17,6 +17,7 @@ if [[ -f $dir/README.md && ( ! -f $dir/README || $dir/README.md -nt $dir/README 
 %F{220}${url+$url%F\{154\} snippet}${plugin+$plugin%F\{154\} plugin}...%f"
     $ronn_bin --roff \
         --manual="Manual For \`${url+$url\' Snippet}${plugin+${plugin##-##}\' Plugin}" \
+        ${user+--organization="$user"} \
         "$dir/README.md" 2>/dev/null
 else
     [[ -f $dir/README.md ]] && \
