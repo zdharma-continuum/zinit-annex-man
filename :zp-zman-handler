@@ -66,7 +66,7 @@ farray=( ${farray[@]:#${dir%/#}/} )
                 zsd -r --scomm \
                     --cignore '(\#*FUNCTION:*{{{*|\#[[:space:]]#}}}*)' \
                     ${outdated_pths[@]}
-                asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc
+                asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc 2>/dev/null
             fi
         )
     else
