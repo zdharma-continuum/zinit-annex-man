@@ -3,7 +3,7 @@
 emulate -LR zsh
 setopt extendedglob warncreateglobal typesetsilent noshortloops
 
-local context state state_descr line ret=1
+local context state state_descr line expl ret=1
 
 _arguments -C \
     '*: :->argument' && ret=0
