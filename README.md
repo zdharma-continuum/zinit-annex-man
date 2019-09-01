@@ -1,6 +1,7 @@
 # z-p-man
 
-A Zsh-Zplugin extension that automatically generates:
+A Zsh-Zplugin [extension](http://zdharma.org/zplugin/wiki/Z-PLUGINS/) that
+automatically generates:
 
   - man pages for all plugins and snippets (out of plugin README.md files by
     using [ronn](https://github.com/rtomayko/ronn) converter),
@@ -26,5 +27,13 @@ Main manual (of the project):
 Code documentation for the plugin.zsh file (of the project):
 
 ![Code documentation](https://raw.githubusercontent.com/zdharma/z-p-zman/master/images/zman-cd.png)
+
+# Installation
+
+Simply load as a plugin. This will install the z-plugin within Zplugin:
+
+```zsh
+zplugin light zdharma/z-p-man
+```
 
 <!-- vim:set ft=markdown tw=80: -->
