@@ -1,6 +1,6 @@
 [submodule "ronn"]
 	path = ronn
-	url = ./ronn
+	url = https://github.com/rtomayko/ronn
 [submodule "zshelldoc"]
 	path = zshelldoc
-	url = GHZ:zshelldoc
+	url = https://github.com/zdharma/zshelldoc
