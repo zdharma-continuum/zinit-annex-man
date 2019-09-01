@@ -1,5 +1,8 @@
 #compdef zman
 
+emulate -LR zsh
+setopt extendedglob warncreateglobal typesetsilent noshortloops
+
 local context state state_descr line ret=1
 
 _arguments -C \
