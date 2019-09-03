@@ -9,10 +9,10 @@ local -x GEM_HOME="$ZMAN_REPO_DIR" RUBYLIB="$RUBYLIB:$ZMAN_REPO_DIR/ronn/lib"
 local ronn_bin="$ZMAN_REPO_DIR/ronn/bin/ronn"
 local -x PATH="$ZMAN_REPO_DIR/bin:$PATH"
 
-if [[ -f ''(#i)$pors/README.md(#qN[1]) && \
-    ( ! -f ''(#i)$pors/README(#qN[1]) || \
-        ''(#i)$pors/README.md(#qN[1]) -nt ''(#i)$pors/README(#qN[1]) ) ]]; then
-    [[ -f ''(#i)$pors/README(#qN[1]) ]] && \
+if [[ -f ''(#i)$dir/README.md(#qN[1]) && \
+    ( ! -f ''(#i)$dir/README(#qN[1]) || \
+        ''(#i)$dir/README.md(#qN[1]) -nt ''(#i)$dir/README(#qN[1]) ) ]]; then
+    [[ -f ''(#i)$dir/README(#qN[1]) ]] && \
         print -P -- "%F{38}zman z-plugin: %F{154}Updating the manual page for the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}...%f" || \
         print -P -- "%F{38}zman z-plugin: %F{154}Generating the manual page for the \
@@ -22,7 +22,7 @@ if [[ -f ''(#i)$pors/README.md(#qN[1]) && \
         ${user+--organization="$user"} \
         (#i)"$dir/README.md"(#qN) 2>/dev/null
 else
-    [[ -f ''(#i)$pors/README.md(#qN[1]) ]] && \
+    [[ -f ''(#i)$dir/README.md(#qN[1]) ]] && \
         print -P -- "%F{38}zman z-plugin: %F{154}Manual page is up to date%f" || \
         print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}%f"
