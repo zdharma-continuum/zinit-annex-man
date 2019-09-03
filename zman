@@ -123,6 +123,7 @@ else
         local fle
         for fle (${farray[@]}) {
             man "$fle"
+            sleep 2
         }
     else
         if (( ${#} && !${#parray} && !${#sarray} )); then
