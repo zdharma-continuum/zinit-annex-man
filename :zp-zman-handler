@@ -44,7 +44,7 @@ submods=( --exclude-dir=${^submods} )
 
 # Include files with zsh-filetype modelines
 farray+=( $dir/${(@f)^"$( cd "$dir" && egrep -rl --exclude-dir=bin --exclude-dir=.git \
---exclude-dir=zsdoc ${submods[@]} --binary-files=without-match \
+--exclude-dir=zsdoc --exclude-dir=.svn ${submods[@]} --binary-files=without-match \
 "(#[[:space:]]+vim:.*ft=(sh|bash|zsh)|#[[:space:]]+vim:.*filetype=(sh|bash|zsh)|\
 -\*-[[:space:]]+.*Mode:[[:space:]]*(sh|bash|zsh|ksh))" .)"}(N) )
 
@@ -68,7 +68,8 @@ farray=( ${farray[@]:#${dir%/#}/} )
                 print -P -- "%F{38}zman z-plugin: %F{154}Generating code documentation...%f"
                 zsd --fpath "$dir:$dir/autoload:$dir/autoloads:$dir/function:\
 $dir/functions:$dir/fun:$dir/func:$dir/funct" \
-                    -r --scomm --cignore '(\#*FUN(C|CTION|):*{{{*|\#[[:space:]]#}}}*)' \
+                    -r --scomm --cignore '(\#*FUN(C|CTION|):*{{{*|\#[[:space:]]#}}}*|\
+\###[[:blank:]]##vim:*)' \
                     ${outdated_pths[@]}
                 asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc 2>/dev/null
             fi
