@@ -1,7 +1,7 @@
 # z-a-man
 
-A Zsh-Zplugin [extension](http://zdharma.org/zplugin/wiki/Z-PLUGINS/) that
-automatically generates:
+A Zsh-Zplugin extension (i.e. an
+[annex](http://zdharma.org/zplugin/wiki/Annexes/)) that automatically generates:
 
   - man pages for all plugins and snippets (out of plugin README.md files by
     using [ronn](https://github.com/rtomayko/ronn) converter),
