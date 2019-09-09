@@ -16,9 +16,9 @@ if [[ -f ''(#i)$dir/README.md(#qN[1]) && \
         # Message
         [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && {
             [[ -f ''(#i)$dir/README(#qN[1]) ]] && \
-                print -P -- "%F{38}zman z-plugin: %F{154}Updating the manual page for the \
+                print -P -- "%F{38}zman annex: %F{154}Updating the manual page for the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}...%f" || \
-                print -P -- "%F{38}zman z-plugin: %F{154}Generating the manual page for the \
+                print -P -- "%F{38}zman annex: %F{154}Generating the manual page for the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}...%f"
         }
 
@@ -31,9 +31,13 @@ else
     # Message
     [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && {
         [[ -f ''(#i)$dir/README.md(#qN[1]) ]] && \
-            print -P -- "%F{38}zman z-plugin: %F{154}Manual page is up to date%f" || \
-            print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
+            print -P -- "%F{38}zman annex: %F{154}Manual page is up to date%f" || \
+            { 
+                if [[ "$(<$dir/._zplugin/mode)" = 1 ]]; then
+                    print -P -- "%F{38}zman annex: %F{154}No README.md in the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}%f"
+                fi
+            }
     }
 fi
 
@@ -76,7 +80,7 @@ farray=( ${farray[@]:#${dir%/#}/} )
             if cd $dir; then
                 # Message
                 [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
-                    print -P -- "%F{38}zman z-plugin: %F{154}Generating code documentation...%f"
+                    print -P -- "%F{38}zman annex: %F{154}Generating code documentation...%f"
 
                 # Generation
                 zsd --fpath "$dir:$dir/autoload:$dir/autoloads:$dir/function:\
@@ -90,10 +94,10 @@ $dir/functions:$dir/fun:$dir/func:$dir/funct" \
     else
         if (( ${#farray} )); then
             [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
-                print -P -- "%F{38}zman z-plugin: %F{154}Code documentation is up to date%f"
+                print -P -- "%F{38}zman annex: %F{154}Code documentation is up to date%f"
         else
             [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
-                print -P -- "%F{38}zman z-plugin: %F{154}No files with code found%f"
+                print -P -- "%F{38}zman annex: %F{154}No files with code found%f"
         fi
     fi
 )
