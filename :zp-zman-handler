@@ -11,21 +11,30 @@ local -x PATH="$ZMAN_REPO_DIR/bin:$PATH"
 
 if [[ -f ''(#i)$dir/README.md(#qN[1]) && \
     ( ! -f ''(#i)$dir/README(#qN[1]) || \
-        ''(#i)$dir/README.md(#qN[1]) -nt ''(#i)$dir/README(#qN[1]) ) ]]; then
-    [[ -f ''(#i)$dir/README(#qN[1]) ]] && \
-        print -P -- "%F{38}zman z-plugin: %F{154}Updating the manual page for the \
+        ''(#i)$dir/README.md(#qN[1]) -nt ''(#i)$dir/README(#qN[1]) )
+    ]]; then
+        # Message
+        [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && {
+            [[ -f ''(#i)$dir/README(#qN[1]) ]] && \
+                print -P -- "%F{38}zman z-plugin: %F{154}Updating the manual page for the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}...%f" || \
-        print -P -- "%F{38}zman z-plugin: %F{154}Generating the manual page for the \
+                print -P -- "%F{38}zman z-plugin: %F{154}Generating the manual page for the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}...%f"
-    $ronn_bin --roff \
-        --manual="Manual For \`${url+$url\' Snippet}${plugin:+${plugin##-##}\' Plugin}" \
-        ${user+--organization="$user"} \
-        (#i)"$dir/README.md"(#qN) 2>/dev/null
+        }
+
+        # Generation
+        $ronn_bin --roff \
+            --manual="Manual For \`${url+$url\' Snippet}${plugin:+${plugin##-##}\' Plugin}" \
+            ${user+--organization="$user"} \
+            (#i)"$dir/README.md"(#qN) 2>/dev/null
 else
-    [[ -f ''(#i)$dir/README.md(#qN[1]) ]] && \
-        print -P -- "%F{38}zman z-plugin: %F{154}Manual page is up to date%f" || \
-        print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
+    # Message
+    [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && {
+        [[ -f ''(#i)$dir/README.md(#qN[1]) ]] && \
+            print -P -- "%F{38}zman z-plugin: %F{154}Manual page is up to date%f" || \
+            print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}%f"
+    }
 fi
 
 local -a outdated_pths
@@ -65,7 +74,11 @@ farray=( ${farray[@]:#${dir%/#}/} )
     if (( ${#outdated_pths} )); then
         (
             if cd $dir; then
-                print -P -- "%F{38}zman z-plugin: %F{154}Generating code documentation...%f"
+                # Message
+                [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
+                    print -P -- "%F{38}zman z-plugin: %F{154}Generating code documentation...%f"
+
+                # Generation
                 zsd --fpath "$dir:$dir/autoload:$dir/autoloads:$dir/function:\
 $dir/functions:$dir/fun:$dir/func:$dir/funct" \
                     -r --scomm --cignore '(\#*FUN(C|CTION|):*{{{*|\#[[:space:]]#}}}*|\
@@ -76,11 +89,13 @@ $dir/functions:$dir/fun:$dir/func:$dir/funct" \
         )
     else
         if (( ${#farray} )); then
-            print -P -- "%F{38}zman z-plugin: %F{154}Code documentation is up to date%f"
+            [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
+                print -P -- "%F{38}zman z-plugin: %F{154}Code documentation is up to date%f"
         else
-            print -P -- "%F{38}zman z-plugin: %F{154}No files with code found%f"
+            [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
+                print -P -- "%F{38}zman z-plugin: %F{154}No files with code found%f"
         fi
     fi
 )
 
-    # vim:ft=zsh:sts=4:sw=4:et
+# vim:ft=zsh:sts=4:sw=4:et
