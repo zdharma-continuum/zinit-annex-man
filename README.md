@@ -1,4 +1,4 @@
-# z-p-man
+# z-a-man
 
 A Zsh-Zplugin [extension](http://zdharma.org/zplugin/wiki/Z-PLUGINS/) that
 automatically generates:
@@ -13,27 +13,27 @@ and it then generates the manpages. To view them there's a `zman` command:
 
 ```zsh
 # View README.md manpage in the terminal
-zman z-p-man
+zman z-a-man
 # View the code documentation (via the full plugin name, as demonstrated)
-zman -c zdharma/z-p-man
+zman -c zplugin/z-a-man
 ```
 
 # Screenshots
 
 Main manual (of the project):
 
-![README](https://raw.githubusercontent.com/zdharma/z-p-zman/master/images/zman-readme.png)
+![README](https://raw.githubusercontent.com/zplugin/z-a-man/master/images/zman-readme.png)
 
 Code documentation for the plugin.zsh file (of the project):
 
-![Code documentation](https://raw.githubusercontent.com/zdharma/z-p-zman/master/images/zman-cd.png)
+![Code documentation](https://raw.githubusercontent.com/zplugin/z-a-man/master/images/zman-cd.png)
 
 # Installation
 
 Simply load as a plugin. This will install the extension within Zplugin:
 
 ```zsh
-zplugin light zdharma/z-p-man
+zplugin light zplugin/z-a-man
 ```
 
 <!-- vim:set ft=markdown tw=80: -->
