@@ -5,7 +5,7 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 
 typeset -g ZMAN_REPO_DIR="${0:h}"
-typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/z-p-zman"
+typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/z-a-zman"
 
 # A simple wrapper around `zman' script to avoid altering PATH
 zman() {
@@ -17,12 +17,12 @@ zman() {
 autoload -Uz :zp-zman-handler
 
 # Prints one of two possible messages during installation
-# adding colors to them and preceding with z-p-zman preable
+# adding colors to them and preceding with z-a-man preable
 zman-inst() {
     if [[ "$1" = g ]]; then
-        print -P -- "\n%F{38}zman z-plugin: \%F{154}Installing %F{220}$2%F{154} gem locally in the z-p-zman directory...%f"
+        print -P -- "\n%F{38}zman annex: \%F{154}Installing %F{220}$2%F{154} gem locally in the z-a-man directory...%f"
     else
-        print -P -- "\n%F{38}zman z-plugin: \%F{154}$2%f"
+        print -P -- "\n%F{38}zman annex: \%F{154}$2%f"
     fi
 }
 
@@ -42,12 +42,12 @@ fi
 
 unset -f zman-inst
 
-@zplg-register-z-plugin "z-p-zman" hook:atclone \
+@zplg-register-annex "z-a-man" hook:atclone \
     :zp-zman-handler \
     :zp-zman-help-handler \
     "zman''" # register a new ice-mod: zman''
 
-@zplg-register-z-plugin "z-p-zman" hook:atpull \
+@zplg-register-annex "z-a-man" hook:atpull \
     :zp-zman-handler \
     :zp-zman-atpull-help-handler
 
