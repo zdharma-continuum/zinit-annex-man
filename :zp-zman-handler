@@ -30,14 +30,16 @@ if [[ -f ''(#i)$dir/README.md(#qN[1]) && \
 else
     # Message
     [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && {
-        [[ -f ''(#i)$dir/README.md(#qN[1]) ]] && \
-            print -P -- "%F{38}zman annex: %F{154}Manual page is up to date%f" || \
-            { 
-                if [[ $type = snippet && "$(<$dir/._zplugin/mode)" = 1 ]]; then
-                    print -P -- "%F{38}zman annex: %F{154}No README.md in the \
+        if [[ -f ''(#i)$dir/README.md(#qN[1]) ]]; then
+            print -P -- "%F{38}zman annex: %F{154}Manual page is up to date%f"
+        else
+            if [[ ${ZPLG_ICE[from]} != (gh-r|github-releases) && \
+                ($type != snippet || "$(<$dir/._zplugin/mode)" = 1)
+            ]]; then
+                print -P -- "%F{38}zman annex: %F{154}No README.md in the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}%f"
-                fi
-            }
+            fi
+        fi
     }
 fi
 
