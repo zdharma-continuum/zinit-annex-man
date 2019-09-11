@@ -33,7 +33,7 @@ else
         if [[ -f ''(#i)$dir/README.md(#qN[1]) ]]; then
             print -P -- "%F{38}zman annex: %F{154}Manual page is up to date%f"
         else
-            if [[ ${ZPLG_ICE[from]} != (gh-r|github-releases) && \
+            if [[ ${ZPLG_ICE[from]} != (gh-r|github-rel) && \
                 ($type != snippet || "$(<$dir/._zplugin/mode)" = 1)
             ]]; then
                 print -P -- "%F{38}zman annex: %F{154}No README.md in the \
