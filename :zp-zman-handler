@@ -99,7 +99,9 @@ $dir/functions:$dir/fun:$dir/func:$dir/funct" \
                 print -P -- "%F{38}zman annex: %F{154}Code documentation is up to date%f"
         else
             [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
-                print -P -- "%F{38}zman annex: %F{154}No files with code found%f"
+                if [[ ${ZPLG_ICE[from]} != (gh-r|github-rel) ]]; then
+                    print -P -- "%F{38}zman annex: %F{154}No files with code found%f"
+                fi
         fi
     fi
 )
