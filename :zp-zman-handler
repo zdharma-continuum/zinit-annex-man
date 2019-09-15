@@ -8,6 +8,7 @@ setopt extendedglob warncreateglobal typesetsilent noshortloops
 local -x GEM_HOME="$ZMAN_REPO_DIR" RUBYLIB="$RUBYLIB:$ZMAN_REPO_DIR/ronn/lib"
 local ronn_bin="$ZMAN_REPO_DIR/ronn/bin/ronn"
 local -x PATH="$ZMAN_REPO_DIR/bin:$PATH"
+integer quiet
 
 if [[ -f ''(#i)$dir/README.md(#qN[1]) && \
     ( ! -f ''(#i)$dir/README(#qN[1]) || \
