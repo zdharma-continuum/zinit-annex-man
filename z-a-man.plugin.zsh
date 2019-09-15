@@ -42,14 +42,19 @@ fi
 
 unset -f zman-inst
 
+# An empty stub to fill the help handler fields
+:za-man-help-null-handler() { :; }
+
+# Register atclone hook
 @zplg-register-annex "z-a-man" hook:atclone \
     :zp-zman-handler \
-    :zp-zman-help-handler \
+    :za-man-help-null-handler \
     "zman''" # register a new ice-mod: zman''
 
+# Register atpull hook
 @zplg-register-annex "z-a-man" hook:atpull \
     :zp-zman-handler \
-    :zp-zman-atpull-help-handler
+    :za-man-help-null-handler
 
 zstyle ':completion:*:zman:argument-rest:plugins' list-colors '=(#b)(*)/(*)==1;35=1;33'
 zstyle ':completion:*:zman:argument-rest:plugins' matcher 'r:|=** l:|=*'
