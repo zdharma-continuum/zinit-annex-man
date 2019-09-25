@@ -88,11 +88,11 @@ farray=( ${farray[@]:#${dir%/#}/} )
                 local -a dirs
                 dirs=( "$dir"/*~(*/zsdoc|*/.git|*/.svn|*/.hg|*/.bzr|*/.cvs)(FND) )
                 # Generation
-                    -r --scomm --cignore '(\#*FUN(C|CTION|):*{{{*|\#[[:space:]]#}}}*|\
-\###[[:blank:]]##vim:*)' \
                     ${outdated_pths[@]}
                 asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc 2>/dev/null
                 zsd --fpath "$dir:${(j.:.)dirs}" \
+                    -r --scomm --cignore '(\#*FUN(C|CTION|):*{{{*|[[:blank:]]#\#[[:blank:]]#}}}*|\
+    [[:blank:]]#\###[[:blank:]]##vim:*|[[:blank:]]#\#[[:blank:]]#-\*-[[:blank:]]##Mode:*)' \
             fi
         )
     else
