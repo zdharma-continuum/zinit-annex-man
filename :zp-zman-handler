@@ -53,7 +53,7 @@ local -a farray submods
 farray=(
     $dir/*.plugin.zsh(N) $dir/*.zsh-theme(N)
     $dir/*.zsh(N) $dir/init.zsh(N) $dir/*.sh(N)
-    $dir/.zshrc(N)
+    $dir/*.bash(N) $dir/.zshrc(N)
 )
 
 [[ -f $dir/.gitmodules ]] && submods=( ${(@f)"$( grep 'path[[:space:]]*=' $dir/.gitmodules )"} )
