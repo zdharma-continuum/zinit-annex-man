@@ -85,13 +85,14 @@ farray=( ${farray[@]:#${dir%/#}/} )
                 [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
                     print -P -- "%F{38}zman annex: %F{154}Generating code documentation...%f"
 
+                local -a dirs
+                dirs=( "$dir"/*~(*/zsdoc|*/.git|*/.svn|*/.hg|*/.bzr|*/.cvs)(FND) )
                 # Generation
-                zsd --fpath "$dir:$dir/autoload:$dir/autoloads:$dir/function:\
-$dir/functions:$dir/fun:$dir/func:$dir/funct" \
                     -r --scomm --cignore '(\#*FUN(C|CTION|):*{{{*|\#[[:space:]]#}}}*|\
 \###[[:blank:]]##vim:*)' \
                     ${outdated_pths[@]}
                 asciidoctor -b manpage zsdoc/${^outdated_pths[@]:t}.adoc 2>/dev/null
+                zsd --fpath "$dir:${(j.:.)dirs}" \
             fi
         )
     else
