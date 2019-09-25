@@ -59,7 +59,7 @@ submods=( ${submods[@]//(#s)[[:space:]]#path[[:space:]]#=[[:space:]]#/} )
 submods=( --exclude-dir=${^submods} )
 
 # Include files with zsh-filetype modelines
-farray+=( $dir/${(@f)^"$( cd "$dir" && egrep -rl --exclude-dir=bin --exclude-dir=.git \
+farray+=( $dir/${(@f)^"$( builtin cd -q "$dir" && egrep -rl --exclude-dir=bin --exclude-dir=.git \
 --exclude-dir=zsdoc --exclude-dir=.svn ${submods[@]} --binary-files=without-match \
 "(#[[:space:]]+vim:.*ft=(sh|bash|zsh)|#[[:space:]]+vim:.*filetype=(sh|bash|zsh)|\
 -\*-[[:space:]]+.*Mode:[[:space:]]*(sh|bash|zsh|ksh))" .)"}(N) )
@@ -67,7 +67,7 @@ farray+=( $dir/${(@f)^"$( cd "$dir" && egrep -rl --exclude-dir=bin --exclude-dir
 farray=( ${farray[@]:#${dir%/#}/} )
 
 (
-    cd "$dir"
+    builtin cd -q "$dir"
     for pth (${(u)farray[@]:P}) {
         fname="${pth:t}"
 
@@ -80,7 +80,7 @@ farray=( ${farray[@]:#${dir%/#}/} )
 
     if (( ${#outdated_pths} )); then
         (
-            if cd $dir; then
+            if builtin cd -q "$dir"; then
                 # Message
                 [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
                     print -P -- "%F{38}zman annex: %F{154}Generating code documentation...%f"
