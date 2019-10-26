@@ -56,5 +56,8 @@ unset -f zman-inst
     :zp-zman-handler \
     :za-man-help-null-handler
 
+# Refresh Zshelldoc on update of the plugin
+@zsh-plugin-run-on-update 'make &>/dev/null -C $ZMAN_REPO_DIR/zshelldoc install PREFIX="$ZMAN_REPO_DIR"'
+
 zstyle ':completion:*:zman:argument-rest:plugins' list-colors '=(#b)(*)/(*)==1;35=1;33'
 zstyle ':completion:*:zman:argument-rest:plugins' matcher 'r:|=** l:|=*'
