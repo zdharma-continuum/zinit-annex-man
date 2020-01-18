@@ -46,13 +46,13 @@ unset -f zman-inst
 :za-man-help-null-handler() { :; }
 
 # Register atclone hook
-@zplg-register-annex "z-a-man" hook:atclone \
+@zinit-register-annex "z-a-man" hook:atclone \
     :zp-zman-handler \
     :za-man-help-null-handler \
     "zman''" # register a new ice-mod: zman''
 
 # Register atpull hook
-@zplg-register-annex "z-a-man" hook:atpull \
+@zinit-register-annex "z-a-man" hook:atpull \
     :zp-zman-handler \
     :za-man-help-null-handler
 
