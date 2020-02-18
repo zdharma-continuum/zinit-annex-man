@@ -43,18 +43,18 @@ fi
 unset -f zman-inst
 
 # An empty stub to fill the help handler fields
-:za-man-help-null-handler() { :; }
+→za-man-help-null-handler() { :; }
 
 # Register atclone hook
 @zinit-register-annex "z-a-man" hook:atclone \
     :zp-zman-handler \
-    :za-man-help-null-handler \
+    →za-man-help-null-handler \
     "zman''" # register a new ice-mod: zman''
 
 # Register atpull hook
 @zinit-register-annex "z-a-man" hook:atpull \
     :zp-zman-handler \
-    :za-man-help-null-handler
+    →za-man-help-null-handler
 
 # Refresh Zshelldoc on update of the plugin
 @zsh-plugin-run-on-update &>/dev/null 'make &>/dev/null -C $ZMAN_REPO_DIR/zshelldoc install PREFIX="$ZMAN_REPO_DIR"'
