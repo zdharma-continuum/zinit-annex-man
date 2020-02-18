@@ -13,7 +13,8 @@ zsdoc/
 # Zsh
 *.zwc
 *zcompdump*
-._zplugin
+._zinit
+.zinit_lastupd
 
 # Prerequisites
 *.d
