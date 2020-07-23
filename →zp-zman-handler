@@ -17,7 +17,7 @@ if [[ -f ''(#i)$dir/README.md(#qN[1]) && \
         ''(#i)$dir/README.md(#qN[1]) -nt ''(#i)$dir/README(#qN[1]) )
     ]]; then
         # Message
-        [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && {
+        [[ "${OPTS[opt_-q,--quiet]}" != 1 ]] && {
             [[ -f ''(#i)$dir/README(#qN[1]) ]] && \
                 print -P -- "%F{38}zman annex: %F{154}Updating the manual page for the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}...%f" || \
@@ -32,7 +32,7 @@ if [[ -f ''(#i)$dir/README.md(#qN[1]) && \
             (#i)"$dir/README.md"(#qN) 2>/dev/null
 else
     # Message
-    [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && {
+    [[ "${OPTS[opt_-q,--quiet]}" != 1 ]] && {
         if [[ -f ''(#i)$dir/README.md(#qN[1]) ]]; then
             print -P -- "%F{38}zman annex: %F{154}Manual page is up to date%f"
         else
@@ -84,7 +84,7 @@ farray=( ${farray[@]:#${dir%/#}/} )
         (
             if builtin cd -q "$dir"; then
                 # Message
-                [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
+                [[ "${OPTS[opt_-q,--quiet]}" != 1 ]] && \
                     print -P -- "%F{38}zman annex: %F{154}Generating code documentation...%f"
 
                 local -a dirs
@@ -99,10 +99,10 @@ farray=( ${farray[@]:#${dir%/#}/} )
         )
     else
         if (( ${#farray} )); then
-            [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
+            [[ "${OPTS[opt_-q,--quiet]}" != 1 ]] && \
                 print -P -- "%F{38}zman annex: %F{154}Code documentation is up to date%f"
         else
-            [[ "${ICE_OPTS[opt_-q,--quiet]}" != 1 ]] && \
+            [[ "${OPTS[opt_-q,--quiet]}" != 1 ]] && \
                 if [[ ${ZPLG_ICE[from]} != (gh-r|github-rel) ]]; then
                     print -P -- "%F{38}zman annex: %F{154}No files with code found%f"
                 fi
