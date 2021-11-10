@@ -3,4 +3,4 @@
 	url = https://github.com/rtomayko/ronn
 [submodule "zshelldoc"]
 	path = zshelldoc
-	url = https://github.com/zdharma/zshelldoc
+	url = https://github.com/zdharma-continuum/zshelldoc
