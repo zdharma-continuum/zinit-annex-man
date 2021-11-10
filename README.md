@@ -1,7 +1,7 @@
 # z-a-man
 
 A Zsh-Zinit extension (i.e. an
-[annex](http://zdharma.org/zinit/wiki/Annexes/)) that automatically generates:
+[annex](https://zdharma-continuum.github.io/zinit/wiki/Annexes/)) that automatically generates:
 
   - man pages for all plugins and snippets (out of plugin README.md files by
     using [ronn](https://github.com/rtomayko/ronn) converter),
