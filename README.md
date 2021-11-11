@@ -1,6 +1,6 @@
-# z-a-man
+# zinit-annex-man
 
-A Zsh-Zinit extension (i.e. an
+A [Zinit](https://github.com/zdharma-continuum/zinit) extension (i.e. an
 [annex](https://zdharma-continuum.github.io/zinit/wiki/Annexes/)) that automatically generates:
 
   - man pages for all plugins and snippets (out of plugin README.md files by
