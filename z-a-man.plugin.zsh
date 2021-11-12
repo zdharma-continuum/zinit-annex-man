@@ -5,7 +5,7 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 
 typeset -g ZMAN_REPO_DIR="${0:h}"
-typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/z-a-zman"
+typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zinit-annex-zman"
 
 # A simple wrapper around `zman' script to avoid altering PATH
 zman() {
@@ -17,10 +17,10 @@ zman() {
 autoload -Uz :zp-zman-handler
 
 # Prints one of two possible messages during installation
-# adding colors to them and preceding with z-a-man preable
+# adding colors to them and preceding with zinit-annex-man preable
 zman-inst() {
     if [[ "$1" = g ]]; then
-        print -P -- "\n%F{38}zman annex: \%F{154}Installing %F{220}$2%F{154} gem locally in the z-a-man directory...%f"
+        print -P -- "\n%F{38}zman annex: \%F{154}Installing %F{220}$2%F{154} gem locally in the zinit-annex-man directory...%f"
     else
         print -P -- "\n%F{38}zman annex: \%F{154}$2%f"
     fi
@@ -46,13 +46,13 @@ unset -f zman-inst
 →za-man-help-null-handler() { :; }
 
 # Register atclone hook
-@zinit-register-annex "z-a-man" hook:atclone-100 \
+@zinit-register-annex "zinit-annex-man" hook:atclone-100 \
     :zp-zman-handler \
     →za-man-help-null-handler \
     "zman''" # register a new ice-mod: zman''
 
 # Register atpull hook
-@zinit-register-annex "z-a-man" hook:atpull-100 \
+@zinit-register-annex "zinit-annex-man" hook:atpull-100 \
     :zp-zman-handler \
     →za-man-help-null-handler
 
