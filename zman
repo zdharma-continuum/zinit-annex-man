@@ -12,7 +12,7 @@ if [[ "$0" != declzsh || -n "$ZSH_SCRIPT" ]]; then
     fpath+=( "$0:h" )
 fi
 
-autoload -Uz :zp-zman-handler
+autoload -Uz za-man-handler
 
 local -a match mbegin mend reply
 local MATCH REPLY
@@ -76,7 +76,7 @@ for pors (${parray[@]}) {
     ]]; then
         -zplg-any-to-user-plugin "${pors:t}"
         # local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5"
-        :zp-zman-handler plugin "${reply[-2]}" "${reply[-1]}" \
+        za-man-handler plugin "${reply[-2]}" "${reply[-1]}" \
                     id_as="${${pors:t}//---//}" "$pors"
     elif [[ ! -f ''(#i)$pors/README.md(#qN[1]) ]]; then
         -zplg-any-to-user-plugin "${pors:t}"
@@ -92,7 +92,7 @@ for pors (${sarray[@]}) {
     ]]; then
         local snippath="${pors#$snipdir/}"
         # local type="$1" url="$2" id_as="$3" dir="$4"
-        :zp-zman-handler snippet "$snippath" \
+        za-man-handler snippet "$snippath" \
                     id_as="${${snippath:t}//--//}" "$pors"
     elif [[ ! -f ''(#i)$pors/README.md(#qN[1]) ]]; then
         local snippath="${pors#$snipdir/}"
