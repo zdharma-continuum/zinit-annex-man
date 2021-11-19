@@ -61,7 +61,7 @@ submods=( ${submods[@]//(#s)[[:space:]]#path[[:space:]]#=[[:space:]]#/} )
 submods=( --exclude-dir=${^submods} )
 
 # Include files with zsh-filetype modelines
-farray+=( $dir/${(@f)^"$( builtin cd -q "$dir" && egrep -rl --exclude-dir=bin --exclude-dir=.git \
+farray+=( $dir/${(@f)^"$( builtin cd -q "$dir" && grep -E -rl --exclude-dir=bin --exclude-dir=.git \
 --exclude-dir=zsdoc --exclude-dir=.svn ${submods[@]} --binary-files=without-match \
 "(#[[:space:]]+vim:.*ft=(sh|bash|zsh)|#[[:space:]]+vim:.*filetype=(sh|bash|zsh)|\
 -\*-[[:space:]]+.*[Mm]ode:[[:space:]]*(sh|bash|zsh|ksh|shell-script))" .)"}(N) )
