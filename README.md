@@ -31,6 +31,13 @@ Code documentation for the plugin.zsh file (of the project):
 
 # Installation
 
+## Dependencies
+
+- ruby (+ gem)
+- ruby-dev
+- tree
+- [zshelldoc](https://github.com/zdharma-continuum/zshelldoc)
+
 Simply load as a plugin. This will install the extension within Zinit:
 
 ```zsh

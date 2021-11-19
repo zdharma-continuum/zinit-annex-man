@@ -10,11 +10,11 @@ typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zinit-annex-zman"
 # A simple wrapper around `zman' script to avoid altering PATH
 zman() {
     "$ZMAN_REPO_DIR/zman" "$ZMAN_REPO_DIR" \
-        "${ZPLGM[PLUGINS_DIR]}" \
-        "${ZPLGM[SNIPPETS_DIR]}" "$@";
+        "${ZINIT[PLUGINS_DIR]}" \
+        "${ZINIT[SNIPPETS_DIR]}" "$@";
 }
 
-autoload -Uz :zp-zman-handler
+autoload -Uz za-man-handler
 
 # Prints one of two possible messages during installation
 # adding colors to them and preceding with zinit-annex-man preable
@@ -47,13 +47,13 @@ unset -f zman-inst
 
 # Register atclone hook
 @zinit-register-annex "zinit-annex-man" hook:atclone-100 \
-    :zp-zman-handler \
+    za-man-handler \
     →za-man-help-null-handler \
     "zman''" # register a new ice-mod: zman''
 
 # Register atpull hook
 @zinit-register-annex "zinit-annex-man" hook:atpull-100 \
-    :zp-zman-handler \
+    za-man-handler \
     →za-man-help-null-handler
 
 # Refresh Zshelldoc on update of the plugin

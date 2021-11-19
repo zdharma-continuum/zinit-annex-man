@@ -11,9 +11,9 @@ _arguments -C \
 case $state in
     argument)
             typeset -a plugins
-            plugins=( "${ZPLGM[PLUGINS_DIR]}"/*(N:t) )
+            plugins=( "${ZINIT[PLUGINS_DIR]}"/*(N:t) )
             plugins=( "${plugins[@]//---//}" )
-            plugins=( "${plugins[@]:#(custom|_local/zplugin)}" )
+            plugins=( "${plugins[@]:#(custom|_local/zinit)}" )
 
             _wanted plugins expl "Plugins" \
                 compadd "$@" -a - plugins && ret=0
