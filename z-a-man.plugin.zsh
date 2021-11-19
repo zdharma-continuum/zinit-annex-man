@@ -10,8 +10,8 @@ typeset -g ZMAN_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zinit-annex-zman"
 # A simple wrapper around `zman' script to avoid altering PATH
 zman() {
     "$ZMAN_REPO_DIR/zman" "$ZMAN_REPO_DIR" \
-        "${ZPLGM[PLUGINS_DIR]}" \
-        "${ZPLGM[SNIPPETS_DIR]}" "$@";
+        "${ZINIT[PLUGINS_DIR]}" \
+        "${ZINIT[SNIPPETS_DIR]}" "$@";
 }
 
 autoload -Uz za-zman-handler
