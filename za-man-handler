@@ -37,7 +37,7 @@ else
             print -P -- "%F{38}zman annex: %F{154}Manual page is up to date%f"
         else
             if [[ ${ZPLG_ICE[from]} != (gh-r|github-rel) && \
-                ($type != snippet || "$(<$dir/._zplugin/mode)" = 1)
+                ($type != snippet || "$(<$dir/._zinit/mode)" = 1)
             ]]; then
                 print -P -- "%F{38}zman annex: %F{154}No README.md in the \
 %F{220}${url+$url%F\{154\} snippet}${plugin:+$plugin%F\{154\} plugin}%f"
