@@ -47,13 +47,13 @@ unset -f zman-inst
 
 # Register atclone hook
 @zinit-register-annex "zinit-annex-man" hook:atclone-100 \
-    :zp-zman-handler \
+    za-zman-handler \
     →za-man-help-null-handler \
     "zman''" # register a new ice-mod: zman''
 
 # Register atpull hook
 @zinit-register-annex "zinit-annex-man" hook:atpull-100 \
-    :zp-zman-handler \
+    za-zman-handler \
     →za-man-help-null-handler
 
 # Refresh Zshelldoc on update of the plugin
