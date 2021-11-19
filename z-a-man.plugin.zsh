@@ -14,7 +14,7 @@ zman() {
         "${ZPLGM[SNIPPETS_DIR]}" "$@";
 }
 
-autoload -Uz :zp-zman-handler
+autoload -Uz za-zman-handler
 
 # Prints one of two possible messages during installation
 # adding colors to them and preceding with zinit-annex-man preable
