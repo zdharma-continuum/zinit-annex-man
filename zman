@@ -74,12 +74,12 @@ for pors (${parray[@]}) {
         ( ! -f ''(#i)$pors/README(#qN[1]) || \
             ''(#i)$pors/README.md(#qN[1]) -nt ''(#i)$pors/README(#qN[1]) )
     ]]; then
-        -zinit-any-to-user-plugin "${pors:t}"
+        -zi::any-to-user-plugin "${pors:t}"
         # local type="$1" user="$2" plugin="$3" id_as="$4" dir="$5"
         za-man-handler plugin "${reply[-2]}" "${reply[-1]}" \
                     id_as="${${pors:t}//---//}" "$pors"
     elif [[ ! -f ''(#i)$pors/README.md(#qN[1]) ]]; then
-        -zinit-any-to-user-plugin "${pors:t}"
+        -zi::any-to-user-plugin "${pors:t}"
         print -P -- "%F{38}zman z-plugin: %F{154}No README.md in the \
 %F{220}${reply[-1]}%F{154} plugin%f"
     fi
