@@ -1,16 +1,14 @@
 # zinit-annex-man
 
-A Zsh-Zinit extension (i.e. an
-[annex](https://zdharma-continuum.github.io/zinit/wiki/Annexes/)) that
-automatically generates:
+A Zsh-Zinit extension (i.e. an [annex](https://zdharma-continuum.github.io/zinit/wiki/Annexes/)) that automatically
+generates:
 
-  - man pages for all plugins and snippets (out of plugin README.md files by
-    using [ronn](https://github.com/rtomayko/ronn) converter),
-  - code-documentation manpages (by using
-    [zshelldoc](https://github.com/zdharma-continuum/zshelldoc) project).
+- man pages for all plugins and snippets (out of plugin README.md files by using
+  [ronn](https://github.com/rtomayko/ronn) converter),
+- code-documentation manpages (by using [zshelldoc](https://github.com/zdharma-continuum/zshelldoc) project).
 
-Man extension is being activated at clone of a plugin and also at update of it
-and it then generates the manpages. To view them there's a `zman` command:
+Man extension is being activated at clone of a plugin and also at update of it and it then generates the manpages. To
+view them there's a `zman` command:
 
 ```zsh
 # View README.md manpage in the terminal
